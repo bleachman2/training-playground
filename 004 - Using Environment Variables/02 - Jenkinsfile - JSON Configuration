@@ -1,4 +1,8 @@
 pipeline {
+	environment{inputJson= '''
+	[{name: "Java",command: "echo 'Java command!'"}, 
+	{name: "Node",command: "echo 'Node command!'"}]
+'''}
     agent { 
 		docker { 
 			image 'alpine:latest' 
@@ -8,7 +12,7 @@ pipeline {
         stage('build') {
             steps {
                 script {
-                	def buildConfigs = []
+                	def buildConfigs = readJSON text: "$inputJson"
                 	buildConfigs.each{ buildConfig ->
                 		sh "echo '$buildConfig.name' && $buildConfig.command"
 					}
