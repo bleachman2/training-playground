@@ -1,4 +1,5 @@
 pipeline {
+	environment{NOTIFICATION_EMAIL='adsjfl'}
     agent { 
 		docker { 
 			image 'alpine:latest' 
